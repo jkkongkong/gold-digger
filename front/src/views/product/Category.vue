@@ -7,7 +7,7 @@
         <i class="nbicon nbfanhui" @click="goHome"></i>
         <div class="header-search">
           <i class="nbicon nbSearch"></i>
-          <router-link tag="span" class="search-title" to="./product-list?from=category">全场50元起步</router-link>
+          <router-link tag="span" class="search-title" to="./productList?from=category">全场50元起步</router-link>
         </div>
         <i class="iconfont icon-More"></i>
       </header>
@@ -90,7 +90,7 @@ export default {
 
     const selectProduct = (item) => {
       console.log('item', item.categoryId)
-      router.push({ path: '/product-list', query: { categoryId: item.categoryId } })
+      router.push({ path: '/productList', query: { categoryId: item.categoryId } })
     }
     return {
       ...toRefs(state),
@@ -103,7 +103,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .categray {
     .category-header {
       background: #fff;

@@ -96,7 +96,7 @@ export default {
     }
 
     const goTo = () => {
-      router.push({ path: '/address', query: { cartItemIds: JSON.stringify(state.cartItemIds), from: 'create-order' }})
+      router.push({ path: '/address', query: { cartItemIds: JSON.stringify(state.cartItemIds), from: 'createOrder' }})
     }
 
     const deleteLocal = () => {
@@ -148,7 +148,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .create-order {
     background: #f9f9f9;
     .address-wrap {

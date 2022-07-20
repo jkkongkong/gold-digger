@@ -135,7 +135,7 @@ export default {
 </script>
 
 <style lang="less">
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .edit {
     .van-field__body {
       textarea {

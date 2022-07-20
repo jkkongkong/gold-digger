@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/manage'
     },
     {
       path: '/home',
@@ -18,7 +18,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import( '@/views/Login.vue'),
+      component: () => import( '@/views/user/Login.vue'),
       meta: {
         index: 1
       }
@@ -34,15 +34,15 @@ const router = createRouter({
     {
       path: '/category',
       name: 'category',
-      component: () => import( '@/views/Category.vue'),
+      component: () => import( '@/views/product/Category.vue'),
       meta: {
         index: 1
       }
     },
     {
-      path: '/product-list',
-      name: 'product-list',
-      component: () => import( '@/views/ProductList.vue'),
+      path: '/productList',
+      name: 'productList',
+      component: () => import( '@/views/product/ProductList.vue'),
       meta: {
         index: 2
       }
@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: '/product/:id',
       name: 'product',
-      component: () => import( '@/views/ProductDetail.vue'),
+      component: () => import( '@/views/product/ProductDetail.vue'),
       meta: {
         index: 3
       }
@@ -58,15 +58,15 @@ const router = createRouter({
     {
       path: '/cart',
       name: 'cart',
-      component: () => import( '@/views/Cart.vue'),
+      component: () => import( '@/views/order/Cart.vue'),
       meta: {
         index: 1
       }
     },
     {
-      path: '/create-order',
-      name: 'create-order',
-      component: () => import( '@/views/CreateOrder.vue'),
+      path: '/createOrder',
+      name: 'createOrder',
+      component: () => import( '@/views/order/CreateOrder.vue'),
       meta: {
         index: 2
       }
@@ -74,15 +74,15 @@ const router = createRouter({
     {
       path: '/order',
       name: 'order',
-      component: () => import( '@/views/Order.vue'),
+      component: () => import( '@/views/order/Order.vue'),
       meta: {
         index: 2
       }
     },
     {
-      path: '/order-detail',
-      name: 'order-detail',
-      component: () => import( '@/views/OrderDetail.vue'),
+      path: '/orderDetail',
+      name: 'orderDetail',
+      component: () => import( '@/views/order/OrderDetail.vue'),
       meta: {
         index: 3
       }
@@ -90,7 +90,7 @@ const router = createRouter({
     {
       path: '/user',
       name: 'user',
-      component: () => import( '@/views/User.vue'),
+      component: () => import( '@/views/user/User.vue'),
       meta: {
         index: 1
       }
@@ -98,7 +98,7 @@ const router = createRouter({
     {
       path: '/setting',
       name: 'setting',
-      component: () => import( '@/views/Setting.vue'),
+      component: () => import( '@/views/user/Setting.vue'),
       meta: {
         index: 2
       }
@@ -106,17 +106,25 @@ const router = createRouter({
     {
       path: '/address',
       name: 'address',
-      component: () => import( '@/views/Address.vue'),
+      component: () => import( '@/views/user/Address.vue'),
       meta: {
         index: 2
       }
     },
     {
-      path: '/address-edit',
-      name: 'address-edit',
-      component: () => import( '@/views/AddressEdit.vue'),
+      path: '/editAddress',
+      name: 'editAddress',
+      component: () => import( '@/views/user/AddressEdit.vue'),
       meta: {
         index: 3
+      }
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: () => import( '@/views/manage/Manage.vue'),
+      meta: {
+        index: 1
       }
     },
   ]

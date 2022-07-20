@@ -79,7 +79,7 @@ export default {
     }
 
     const goTo = (id) => {
-      router.push({ path: '/order-detail', query: { id } })
+      router.push({ path: '/orderDetail', query: { id } })
     }
 
     const goBack = () => {
@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .order-box {
     .order-header {
       position: fixed;

@@ -1,6 +1,6 @@
 
 
-import axios from '../utils/axios'
+import axios from '@/service/axios'
 
 export function getHome() {
   return axios.get('/index-infos');

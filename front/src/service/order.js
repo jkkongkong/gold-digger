@@ -1,6 +1,6 @@
 
 
-import axios from '../utils/axios'
+import axios from '@/service/axios'
 
 export function createOrder(params) {
   return axios.post('/saveOrder', params);

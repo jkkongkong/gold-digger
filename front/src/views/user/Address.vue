@@ -1,7 +1,7 @@
 
 <template>
   <div class="address-box">
-    <s-header :name="'地址管理'" :back="from == 'create-order' ? '' : '/user'"></s-header>
+    <s-header :name="'地址管理'" :back="from == 'createOrder' ? '' : '/user'"></s-header>
     <div class="address-item">
       <van-address-list
         v-if="from != 'mine'"
@@ -60,15 +60,15 @@ export default {
     })
 
     const onAdd = () => {
-      router.push({ path: '/address-edit', query: { type: 'add', from: state.from }})
+      router.push({ path: '/editAddress', query: { type: 'add', from: state.from }})
     }
 
     const onEdit = (item) => {
-      router.push({ path: 'address-edit', query: { type: 'edit', addressId: item.id, from: state.from }})
+      router.push({ path: 'editAddress', query: { type: 'edit', addressId: item.id, from: state.from }})
     }
 
     const select = (item) => {
-      router.push({ path: 'create-order', query: { addressId: item.id, from: state.from }})
+      router.push({ path: 'createOrder', query: { addressId: item.id, from: state.from }})
     }
 
     return {
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="less">
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .address-box {
     .van-radio__icon {
       display: none;

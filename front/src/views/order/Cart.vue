@@ -142,7 +142,7 @@ export default {
         return
       }
       const params = JSON.stringify(state.result)
-      router.push({ path: '/create-order', query: { cartItemIds: params } })
+      router.push({ path: '/createOrder', query: { cartItemIds: params } })
     }
 
     const deleteGood = async (id) => {
@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style lang="less">
-  @import '../common/style/mixin';
+  @import '../../common/style/mixin';
   .cart-box {
     .cart-header {
       position: fixed;
