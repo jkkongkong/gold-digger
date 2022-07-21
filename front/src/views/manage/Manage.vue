@@ -2,44 +2,33 @@
 
 <template>
   <div class="container">
-    <van-tabs @click="onChangeTab" :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab"
-      v-model="status">
+    <van-tabs :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab"
+      v-model="menuIndex">
       <van-tab :title="item.name" :name='item.value' v-for="(item,index) in menuList" :key="index"></van-tab>
     </van-tabs>
-    <Dashboard></Dashboard>
+    <component :is="componentName[menuIndex]" />
   </div>
 </template>
 
 <script>
-import { reactive, onMounted, toRefs, nextTick } from 'vue'
 import { MENU_LiST } from '@/utils/constants.js'
 import Dashboard from '@/views/manage/dashboard/Dashboard.vue'
+import ArticleMenu from '@/views/manage/articleMenu/ArticleMenu.vue'
 export default {
   name: 'Manage',
-  components: {Dashboard},
-  setup() {
-    const state = reactive({
-      menuList: MENU_LiST,
-      status:1
-    })
-    onMounted(() => {
-    })
-
-    nextTick(() => {
-
-    })
-
-    const goToDetail = () => { }
-
+  components: {Dashboard,ArticleMenu},
+  data(){
     return {
-      ...toRefs(state),
-      goToDetail,
+      menuIndex:2,
+      menuList: MENU_LiST,
+      componentName:{
+        1:'Dashboard',
+        2:'ArticleMenu',
+        3:'Dashboard',
+      }
     }
   },
   methods:{
-    onChangeTab(name){
-      this.status = name
-    }
   }
 }
 </script>

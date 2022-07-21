@@ -120,9 +120,17 @@ const router = createRouter({
       }
     },
     {
-      path: '/manage',
-      name: 'manage',
-      component: () => import( '@/views/manage/Manage.vue'),
+      path: '/articleMenu',
+      name: 'articleMenu',
+      component: () => import( '@/views/product/code/ArticleMenu.vue'),
+      meta: {
+        index: 1
+      }
+    },
+    {
+      path: '/codeCourse',
+      name: 'codeCourse',
+      component: () => import( '@/views/product/code/CodeCourse.vue'),
       meta: {
         index: 1
       }

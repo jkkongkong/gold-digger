@@ -2,32 +2,21 @@
 
 <template>
   <div class="container">
-    <h1>ArticleMenu</h1>
+    <div class="actions">
+      <van-search v-model.trim="searchKey" placeholder="请输入搜索关键词" class="search"/>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, onMounted, toRefs, nextTick } from 'vue'
 export default {
   name: 'ArticleMenu',
   components: {},
-  setup() {
-    const state = reactive({
-      swiperList: [], // 轮播图列表
-    })
-    onMounted(() => {})
-
-    nextTick(() => {
-
-    })
-
-    const goToDetail = () => {}
-
+  data(){
     return {
-      ...toRefs(state),
-      goToDetail
+      searchKey:''
     }
-  },
+  }
 }
 </script>
 
@@ -37,5 +26,13 @@ export default {
     border: 1px solid blue;
     display: flex;
     flex-wrap: wrap;
+    .actions{
+      height: 40px;
+      padding: 10;
+      box-sizing: border-box;
+    }
+    .search{
+      border:1px solid black;
+    }
   }
 </style>
