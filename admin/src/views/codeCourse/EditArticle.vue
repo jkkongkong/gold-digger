@@ -3,12 +3,13 @@
     <el-dialog :title="type == 1 ? '新建' : '编辑'" :close-on-click-modal="false" width="90%" height="80%"
       class="edit-course" v-bind="$attrs" append-to-body destroy-on-close @close="closeDialog">
       <div class="content">
-        <el-form ref="courseForm" :model="form" :rules="rules" label-width="100px" :inline="true">
+        <el-form ref="articleForm" :model="form" :rules="rules" label-width="100px" :inline="true">
           <el-form-item label="名称" prop="name">
             <el-input v-model="form.name" size="small" style="width:400px;" />
           </el-form-item>
-          <el-form-item label="课程数" prop="num">
-            <el-input v-model="form.num" size="small" style="width:400px;" />
+          <el-form-item label="日期" prop="date">
+            <el-date-picker v-model="form.date" format="yyyy-M-d" type="date" placeholder="请选择"
+              value-format="yyyy-M-d" />
           </el-form-item>
           <el-form-item label="大小" prop="size">
             <el-input v-model="form.size" size="small" style="width:400px;" />
@@ -22,11 +23,11 @@
           <el-form-item label="评论" prop="comment">
             <el-input v-model="form.comment" size="small" style="width:400px;" />
           </el-form-item>
-          <el-form-item label="价格" prop="price">
-            <el-input v-model="form.price" size="small" style="width:400px;" />
+          <el-form-item label="源地址" prop="origin">
+            <el-input v-model="form.origin" size="small" style="width:400px;" />
           </el-form-item>
-          <el-form-item label="提货码" prop="pickingCode">
-            <el-input v-model="form.pickingCode" size="small" style="width:400px;" type="textarea" />
+          <el-form-item label="解压密码" prop="password">
+            <el-input v-model="form.password" size="small" style="width:400px;" type="textarea" />
           </el-form-item>
           <el-form-item label="描述" prop="desc" class="desc">
             <el-input v-model="form.desc" size="small" placeholder="请输入" style="width:100%;" type="textarea"
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import { getCourseDetails, updateCourse, addCourse } from '@/api/codeCourse'
+import { getArticleDetails, updateArticle, addArticle } from '@/api/article'
 export default {
   name: 'EditCourse',
   components: {},
@@ -64,7 +65,7 @@ export default {
   data() {
     return {
       test: '',
-      form: { id: '', name: '', num: '', size: '', hot: '', like: '', comment: '', price: '', desc: '', pickingCode: '' },
+      form: { id: '', name: '', date: '', size: '', hot: '', like: '', comment: '', origin: '', desc: '', password: '' },
       rules: {
         name: [{ required: true, message: '字段必填', trigger: ['change', 'blur'] }],
         num: [{ required: true, message: '字段必填', trigger: ['change', 'blur'] }],
@@ -81,29 +82,27 @@ export default {
   watch: {},
   mounted() {
     if (this.id) {
-      this.getCourseDetails(this.id)
+      this.getArticleDetails(this.id)
     }
     if (this.type === 1) {
-      this.form.hot = parseInt(Math.random() * 2000 + 500)
-      let param = Math.random()
+      this.form.hot = parseInt(Math.random() * 500 + 100)
+      const param = Math.random()
       this.form.like = parseInt((param > 0.9 ? 0.9 : param > 0.7 ? 0.8 : 0.7) * this.form.hot)
-      param = Math.random()
-      this.form.comment = parseInt((param > 0.9 ? 0.8 : param > 0.7 ? 0.6 : 0.4) * 300)
     }
   },
   methods: {
-    async getCourseDetails(id) {
-      const re = await getCourseDetails({ id })
+    async getArticleDetails(id) {
+      const re = await getArticleDetails({ id })
       console.log(re)
     },
     closeDialog() {
       this.$emit('update:visible', false)
     },
     save() {
-      this.$refs.courseForm.validate(async (valid) => {
+      this.$refs.articleForm.validate(async (valid) => {
         if (valid) {
           if (this.type === 1) {
-            const re = await updateCourse(this.form)
+            const re = await updateArticle(this.form)
             if (re.status === 'success') {
               this.$message.success('更新成功')
               this.$emit('change')
@@ -112,7 +111,7 @@ export default {
               this.$message.error('更新失败')
             }
           } else {
-            const re = await addCourse(this.form)
+            const re = await addArticle(this.form)
             if (re.status === 'success') {
               this.$message.success('新增成功')
               this.$emit('change')

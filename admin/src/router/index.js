@@ -178,7 +178,7 @@ export const asyncRoutes = [
     name: 'Code Course',
     meta: {
       title: 'CodeCourse',
-      icon: 'lock',
+      icon: 'education',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
     children: [
@@ -192,22 +192,25 @@ export const asyncRoutes = [
         }
       },
       {
-        path: 'courseMenu',
-        component: () => import('@/views/permission/directive'),
-        name: 'CourseMenu',
+        path: 'allArticle',
+        component: () => import('@/views/codeCourse/AllArticle.vue'),
+        name: 'AllArticle',
         meta: {
-          title: 'Course Menu'
+          title: 'All Article'
           // if do not set roles, means: this page does not require permission
         }
-      },
+      }
+    ]
+  },
+  {
+    path: '/commentManage',
+    component: Layout,
+    children: [
       {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
-        }
+        path: 'index',
+        component: () => import('@/views/comment/CommentManage.vue'),
+        name: 'CommentManage',
+        meta: { title: 'CommentManage', icon: 'message' }
       }
     ]
   },

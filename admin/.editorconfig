@@ -8,6 +8,9 @@ indent_size = 2
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+spaces_around_operators = true
+indent_brace_style = 1tbs
+max_line_length = 400
 
 [*.md]
 insert_final_newline = false

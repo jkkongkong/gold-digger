@@ -32,9 +32,37 @@ export function createArticle(data) {
   })
 }
 
+export function getArticleDetails(data) {
+  return request({
+    url: '/article/getArticleDetails',
+    method: 'post',
+    data
+  })
+}
 export function updateArticle(data) {
   return request({
-    url: '/vue-element-admin/article/update',
+    url: '/article/updateArticle',
+    method: 'post',
+    data
+  })
+}
+export function addArticle(data) {
+  return request({
+    url: '/article/addArticle',
+    method: 'post',
+    data
+  })
+}
+export function queryArticleList(data) {
+  return request({
+    url: '/article/queryArticleList',
+    method: 'post',
+    data
+  })
+}
+export function delArticle(data) {
+  return request({
+    url: '/article/delArticle',
     method: 'post',
     data
   })
