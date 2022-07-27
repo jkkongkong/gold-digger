@@ -2,137 +2,116 @@
 
 <template>
   <div>
-    <header class="home-header wrap" :class="{'active' : headerScroll}">
-      <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
-      <div class="header-search">
-        <span class="app-name">商城</span>
-        <i class="iconfont icon-search"></i>
-        <router-link tag="span" class="search-title" to="./productList?from=home">山河无恙，人间皆安</router-link>
-      </div>
-      <router-link class="login" tag="span" to="./login" v-if="!isLogin">登录</router-link>
-      <router-link class="login" tag="span" to="./user" v-else>
-        <van-icon name="manager-o" />
-      </router-link>
-    </header>
-    <nav-bar />
-    <swiper :list="swiperList"></swiper>
+    <img src="/img/1.jpg" class="home-header" />
     <div class="category-list">
-      <div v-for="item in categoryList" v-bind:key="item.categoryId" @click="tips">
-        <img :src="item.imgUrl">
-        <span>{{item.name}}</span>
-      </div>
-    </div>
-    <div class="good">
-      <header class="good-header">新品上线</header>
-      <van-skeleton title :row="3" :loading="loading">
-        <div class="good-box">
-          <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-            <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
-            </div>
-          </div>
+      <van-skeleton title :row="7" :loading="loading">
+        <div v-for="item in categoryList" class="item" v-bind:key="item.categoryId" @click="tips">
+          <img :src="item.icon">
+          <span>{{ item.name }}</span>
         </div>
       </van-skeleton>
     </div>
-    <div class="good">
-      <header class="good-header">热门商品</header>
-      <van-skeleton title :row="3" :loading="loading">
-        <div class="good-box">
-          <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-            <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
-            </div>
-          </div>
-        </div>
-      </van-skeleton>
-    </div>
-    <div class="good" :style="{ paddingBottom: '100px'}">
-      <header class="good-header">最新推荐</header>
-      <van-skeleton title :row="3" :loading="loading">
-        <div class="good-box">
-          <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
-            <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
-            <div class="good-desc">
-              <div class="title">{{ item.goodsName }}</div>
-              <div class="price">¥ {{ item.sellingPrice }}</div>
-            </div>
-          </div>
-        </div>
-      </van-skeleton>
-    </div>
+    <PageFooter></PageFooter>
   </div>
 </template>
 
 <script>
 import { reactive, onMounted, toRefs, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
-import swiper from '@/components/Swiper'
-import navBar from '@/components/NavBar'
-import { getHome } from '@/service/home'
 import { getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
-import { useStore  } from 'vuex'
+import { useStore } from 'vuex'
+import PageFooter from "@/components/common/PageFooter.vue"
 export default {
   name: 'home',
-  components: {
-    swiper,
-    navBar
-  },
+  components: { PageFooter },
   setup() {
     const store = useStore()
     const router = useRouter()
     const state = reactive({
-      swiperList: [], // 轮播图列表
       isLogin: false, // 是否已登录
       headerScroll: false, // 滚动透明判断
-      hots: [],
-      newGoodses: [],
-      recommends: [],
       categoryList: [
         {
-          name: '哈士奇超市',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
-          categoryId: 100001
+          title: '一条狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100001
         }, {
-          name: '哈士奇服饰',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
-          categoryId: 100003
+          title: '一条冷冷的狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100002
         }, {
-          name: '全球购',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
-          categoryId: 100002
+          title: '一条无所谓的狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100003
         }, {
-          name: '哈士奇生鲜',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
-          categoryId: 100004
+          title: '一条有所谓的狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100005
         }, {
-          name: '哈士奇到家',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
-          categoryId: 100005
+          title: '一条爱要不要的狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100006
         }, {
-          name: '充值缴费',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
-          categoryId: 100006
+          title: '一条吊儿郎当的狗命',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100007
         }, {
-          name: '9.9元拼',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
-          categoryId: 100007
+          title: '一条狗和一只青蛙的爱情故事',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100008
         }, {
-          name: '领劵',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
-          categoryId: 100008
+          title: '一条狗和一只蚊子不得不说的那些让人心碎的事情',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100009
         }, {
-          name: '省钱',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
-          categoryId: 100009
+          title: '一条狗命不值钱',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100010
         }, {
-          name: '全部',
-          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
-          categoryId: 100010
+          title: '一条狗命不知道值不值钱',
+          desc: '一条狗行走在纽约的街头，冰冷的寒风呼呼的刮过脸庞，狗子冻得瑟瑟发抖，他多么希望有个温暖的家可以依靠，但是这一切都是幻象，他没有家，更没有家人，他唯一有的就是一个坚硬而冰冷的心！',
+          icon: '/img/1.jpg',
+          hot: parseInt(Math.random() * 1000),
+          like: parseInt(Math.random() * 1000),
+          comment: parseInt(Math.random() * 1000),
+          courseId: 100011
         }
       ],
       loading: true
@@ -148,11 +127,6 @@ export default {
         message: '加载中...',
         forbidClick: true
       });
-      const { data } = await getHome()
-      state.swiperList = data.carousels
-      state.newGoodses = data.newGoodses
-      state.hots = data.hotGoodses
-      state.recommends = data.recommendGoodses
       state.loading = false
       Toast.clear()
     })
@@ -182,169 +156,28 @@ export default {
 </script>
 
 <style lang="less" scoped >
-  @import '../common/style/mixin';
-  .home-header {
-      position: fixed;
-      left: 0;
-      top: 0;
-      .wh(100%, 50px);
-      .fj();
-      line-height: 50px;
-      padding: 0 15px;
-      .boxSizing();
-      font-size: 15px;
-      color: #fff;
-      z-index: 10000;
-      .nbmenu2 {
-        color: @primary;
-      }
-      &.active {
-        background: @primary;
-        .nbmenu2 {
-          color: #fff;
-        }
-        .login {
-          color: #fff;
-        }
-      }
 
-      .header-search {
-          display: flex;
-          .wh(74%, 20px);
-          line-height: 20px;
-          margin: 10px 0;
-          padding: 5px 0;
-          color: #232326;
-          background: rgba(255, 255, 255, .7);
-          border-radius: 20px;
-          .app-name {
-              padding: 0 10px;
-              color: @primary;
-              font-size: 20px;
-              font-weight: bold;
-              border-right: 1px solid #666;
-          }
-          .icon-search {
-              padding: 0 10px;
-              font-size: 17px;
-          }
-          .search-title {
-              font-size: 12px;
-              color: #666;
-              line-height: 21px;
-          }
-      }
-      .icon-iconyonghu{
-        color: #fff;
-        font-size: 22px;
-      }
-      .login {
-        color: @primary;
-        line-height: 52px;
-        .van-icon-manager-o {
-          font-size: 20px;
-          vertical-align: -3px;
-        }
-      }
-  }
-  .category-list {
+
+
+
+@import '../common/style/mixin';
+
+.category-list {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-bottom: 13px;
+
+  .item {
     display: flex;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    width: 100%;
-    padding-bottom: 13px;
-    div {
-      display: flex;
-      flex-direction: column;
-      width: 20%;
-      text-align: center;
-      img {
-        .wh(36px, 36px);
-        margin: 13px auto 8px auto;
-      }
-    }
+    flex-direction: column;
   }
-  .good {
-    .good-header {
-      background: #f9f9f9;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      color: @primary;
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .good-box {
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      .good-item {
-        box-sizing: border-box;
-        width: 50%;
-        border-bottom: 1PX solid #e9e9e9;
-        padding: 10px 10px;
-        img {
-          display: block;
-          width: 120px;
-          margin: 0 auto;
-        }
-        .good-desc {
-          text-align: center;
-          font-size: 14px;
-          padding: 10px 0;
-          .title {
-            color: #222333;
-          }
-          .price {
-            color: @primary;
-          }
-        }
-        &:nth-child(2n + 1) {
-          border-right: 1PX solid #e9e9e9;
-        }
-      }
-    }
-  }
-  .floor-list {
-      width: 100%;
-      padding-bottom: 50px;
-      .floor-head {
-        width: 100%;
-        height: 40px;
-        background: #F6F6F6;
-      }
-      .floor-content {
-        display: flex;
-        flex-shrink: 0;
-        flex-wrap: wrap;
-        width: 100%;
-        .boxSizing();
-        .floor-category {
-          width: 50%;
-          padding: 10px;
-          border-right: 1px solid #dcdcdc;
-          border-bottom: 1px solid #dcdcdc;
-          .boxSizing();
-          &:nth-child(2n) {
-            border-right: none;
-          }
-          p {
-            font-size: 17px;
-            color: #333;
-            &:nth-child(2) {
-              padding: 5px 0;
-              font-size: 13px;
-              color: @primary;
-            }
-          }
-          .floor-products {
-            .fj();
-            width: 100%;
-            img {
-              .wh(65px, 65px);
-            }
-          }
-      }
-    }
+}
+
+.home-header {
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 20px;
   }
 </style>

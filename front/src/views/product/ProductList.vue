@@ -7,14 +7,11 @@
         <i class="nbicon nbfanhui" @click="goBack"></i>
         <div class="header-search">
           <i class="nbicon nbSearch"></i>
-          <input
-            type="text"
-            class="search-title"
-            v-model="keyword"/>
+          <input type="text" class="search-title" v-model="keyword" />
         </div>
         <span class="search-btn" @click="getSearch">搜索</span>
       </header>
-      <van-tabs type="card" color="#1baeae" @click="changeTab" >
+      <van-tabs type="card" color="rgb(137,192,178)" @click="changeTab">
         <van-tab title="推荐" name=""></van-tab>
         <van-tab title="新品" name="new"></van-tab>
         <van-tab title="价格" name="price"></van-tab>
@@ -22,13 +19,8 @@
     </div>
     <div class="content">
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="product-list-refresh">
-        <van-list
-          v-model:loading="loading"
-          :finished="finished"
-          :finished-text="productList.length ? '没有更多了' : '搜索想要的商品'"
-          @load="onLoad"
-          @offset="10"
-        >
+        <van-list v-model:loading="loading" :finished="finished"
+          :finished-text="productList.length ? '没有更多了' : '搜索想要的商品'" @load="onLoad" @offset="10">
           <!-- <p v-for="item in list" :key="item">{{ item }}</p> -->
           <template v-if="productList.length">
             <div class="product-item" v-for="(item, index) in productList" :key="index" @click="productDetail(item)">

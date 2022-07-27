@@ -16,43 +16,25 @@
               </div>
               <div class="good-btn">
                 <div class="price">¥{{ item.sellingPrice }}</div>
-                <van-stepper
-                  integer
-                  :min="1"
-                  :max="5"
-                  :model-value="item.goodsCount"
-                  :name="item.cartItemId"
-                  async-change
-                  @change="onChange"
-                />
+                <van-stepper integer :min="1" :max="5" :model-value="item.goodsCount" :name="item.cartItemId"
+                  async-change @change="onChange" />
               </div>
             </div>
           </div>
           <template #right>
-            <van-button
-              square
-              icon="delete"
-              type="danger"
-              class="delete-button"
-              @click="deleteGood(item.cartItemId)"
-            />
+            <van-button square icon="delete" type="danger" class="delete-button" @click="deleteGood(item.cartItemId)" />
           </template>
         </van-swipe-cell>
       </van-checkbox-group>
     </div>
-    <van-submit-bar
-      v-if="list.length > 0"
-      class="submit-all van-hairline--top"
-      :price="total * 100"
-      button-text="结算"
-      @submit="onSubmit"
-    >
+    <van-submit-bar v-if="list.length > 0" class="submit-all van-hairline--top" :price="total * 100" button-text="结算"
+      @submit="onSubmit">
       <van-checkbox @click="allCheck" v-model:checked="checkAll">全选</van-checkbox>
     </van-submit-bar>
     <div class="empty" v-if="!list.length">
       <img class="empty-cart" src="https://s.yezgea02.com/1604028375097/empty-car.png" alt="空购物车">
       <div class="title">购物车空空如也</div>
-      <van-button round color="#1baeae" type="primary" @click="goTo" block>前往选购</van-button>
+      <van-button round color="rgb(137,192,178)" type="primary" @click="goTo" block>前往选购</van-button>
     </div>
     <nav-bar></nav-bar>
   </div>

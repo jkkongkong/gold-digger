@@ -5,7 +5,7 @@
     <s-header :name="'商品详情'"></s-header>
     <div class="detail-content">
       <div class="detail-swipe-wrap">
-        <van-swipe class="my-swipe" indicator-color="#1baeae">
+        <van-swipe class="my-swipe" indicator-color="rgb(137,192,178)">
           <van-swipe-item v-for="(item, index) in detail.goodsCarouselList" :key="index">
             <img :src="item" alt="">
           </van-swipe-item>
@@ -32,10 +32,8 @@
       </div>
     </div>
     <van-action-bar>
-      <van-action-bar-icon icon="chat-o" text="客服" />
-      <van-action-bar-icon icon="cart-o" :badge="!count ? '' : count" @click="goTo()" text="购物车" />
-      <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车" />
-      <van-action-bar-button type="danger" @click="goToCart" text="立即购买" />
+      <van-action-bar-icon icon="chat-o" text="首页" />
+      <van-action-bar-button type="danger" @click="goToCart" text="我的" />
     </van-action-bar>
   </div>
 </template>

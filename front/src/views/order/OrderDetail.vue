@@ -16,9 +16,12 @@
         <label>下单时间：</label>
         <span>{{ detail.createTime }}</span>
       </div>
-      <van-button v-if="detail.orderStatus == 3" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(detail.orderNo)">确认收货</van-button>
-      <van-button v-if="detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
-      <van-button v-if="!(detail.orderStatus < 0 || detail.orderStatus == 4)" block @click="handleCancelOrder(detail.orderNo)">取消订单</van-button>
+      <van-button v-if="detail.orderStatus == 3" style="margin-bottom: 10px" color="rgb(137,192,178)" block
+        @click="handleConfirmOrder(detail.orderNo)">确认收货</van-button>
+      <van-button v-if="detail.orderStatus == 0" style="margin-bottom: 10px" color="rgb(137,192,178)" block
+        @click="showPayFn">去支付</van-button>
+      <van-button v-if="!(detail.orderStatus < 0 || detail.orderStatus == 4)" block
+        @click="handleCancelOrder(detail.orderNo)">取消订单</van-button>
     </div>
     <div class="order-price">
       <div class="price-item">
@@ -30,23 +33,13 @@
         <span>普通快递</span>
       </div>
     </div>
-    <van-card
-      v-for="item in detail.newBeeMallOrderItemVOS"
-      :key="item.goodsId"
-      style="background: #fff"
-      :num="item.goodsCount"
-      :price="item.sellingPrice"
-      desc="全场包邮"
-      :title="item.goodsName"
-      :thumb="$filters.prefix(item.goodsCoverImg)"
-    />
-    <van-popup
-      v-model:show="showPay"
-      position="bottom"
-      :style="{ height: '24%' }"
-    >
+    <van-card v-for="item in detail.newBeeMallOrderItemVOS" :key="item.goodsId" style="background: #fff"
+      :num="item.goodsCount" :price="item.sellingPrice" desc="全场包邮" :title="item.goodsName"
+      :thumb="$filters.prefix(item.goodsCoverImg)" />
+    <van-popup v-model:show="showPay" position="bottom" :style="{ height: '24%' }">
       <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(detail.orderNo, 1)">支付宝支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(detail.orderNo, 1)">
+          支付宝支付</van-button>
         <van-button color="#4fc08d" block @click="handlePayOrder(detail.orderNo, 2)">微信支付</van-button>
       </div>
     </van-popup>

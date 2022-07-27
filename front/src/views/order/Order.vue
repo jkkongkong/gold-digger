@@ -3,7 +3,8 @@
 <template>
   <div class="order-box">
     <s-header :name="'我的订单'" :back="'/user'"></s-header>
-    <van-tabs @click="onChangeTab" :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab" v-model="status">
+    <van-tabs @click="onChangeTab" :color="'rgb(137,192,178)'" :title-active-color="'rgb(137,192,178)'"
+      class="order-tab" v-model="status">
       <van-tab title="全部" name=''></van-tab>
       <van-tab title="待付款" name="0"></van-tab>
       <van-tab title="待确认" name="1"></van-tab>
@@ -13,27 +14,15 @@
     </van-tabs>
     <div class="content">
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="order-list-refresh">
-        <van-list
-          v-model:loading="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-          @offset="10"
-        >
+        <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" @offset="10">
           <div v-for="(item, index) in list" :key="index" class="order-item-box" @click="goTo(item.orderNo)">
             <div class="order-item-header">
               <span>订单时间：{{ item.createTime }}</span>
               <span>{{ item.orderStatusString }}</span>
             </div>
-            <van-card
-              v-for="one in item.newBeeMallOrderItemVOS"
-              :key="one.orderId"
-              :num="one.goodsCount"
-              :price="one.sellingPrice"
-              desc="全场包邮"
-              :title="one.goodsName"
-              :thumb="$filters.prefix(one.goodsCoverImg)"
-            />
+            <van-card v-for="one in item.newBeeMallOrderItemVOS" :key="one.orderId" :num="one.goodsCount"
+              :price="one.sellingPrice" desc="全场包邮" :title="one.goodsName"
+              :thumb="$filters.prefix(one.goodsCoverImg)" />
           </div>
         </van-list>
       </van-pull-refresh>

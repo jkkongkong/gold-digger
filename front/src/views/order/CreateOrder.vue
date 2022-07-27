@@ -32,18 +32,14 @@
         <span>商品金额</span>
         <span>¥{{ total }}</span>
       </div>
-      <van-button @click="handleCreateOrder" class="pay-btn" color="#1baeae" type="primary" block>生成订单</van-button>
+      <van-button @click="handleCreateOrder" class="pay-btn" color="rgb(137,192,178)" type="primary" block>生成订单
+      </van-button>
     </div>
-    <van-popup
-      closeable
-      :close-on-click-overlay="false"
-      v-model:show="showPay"
-      position="bottom"
-      :style="{ height: '30%' }"
-      @close="close"
-    >
+    <van-popup closeable :close-on-click-overlay="false" v-model:show="showPay" position="bottom"
+      :style="{ height: '30%' }" @close="close">
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(1)">支付宝支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(1)">支付宝支付
+        </van-button>
         <van-button color="#4fc08d" block @click="handlePayOrder(2)">微信支付</van-button>
       </div>
     </van-popup>

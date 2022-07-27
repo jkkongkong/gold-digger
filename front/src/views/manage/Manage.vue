@@ -2,7 +2,7 @@
 
 <template>
   <div class="container">
-    <van-tabs :color="'#1baeae'" :title-active-color="'#1baeae'" class="order-tab"
+    <van-tabs :color="'rgb(137,192,178)'" :title-active-color="'rgb(137,192,178)'" class="order-tab"
       v-model="menuIndex">
       <van-tab :title="item.name" :name='item.value' v-for="(item,index) in menuList" :key="index"></van-tab>
     </van-tabs>
